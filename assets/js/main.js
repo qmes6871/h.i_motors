@@ -24,13 +24,15 @@ function initBannerSlider() {
 
     // Show specific slide
     function showSlide(index) {
+        if (totalSlides === 0) return;
+
         // Remove active class from all slides
         slides.forEach(slide => slide.classList.remove('banner__slide--active'));
         indicators.forEach(indicator => indicator.classList.remove('banner__indicator--active'));
 
         // Add active class to current slide
-        slides[index].classList.add('banner__slide--active');
-        indicators[index].classList.add('banner__indicator--active');
+        if (slides[index]) slides[index].classList.add('banner__slide--active');
+        if (indicators[index]) indicators[index].classList.add('banner__indicator--active');
     }
 
     // Next slide
@@ -223,24 +225,7 @@ function initMobileMenu() {
 
 /* ==================== DROPDOWN MENUS ==================== */
 function initDropdownMenus() {
-    const nav = document.querySelector('.nav');
-    if (!nav) return;
-
-    const dropdownItems = nav.querySelectorAll('.nav__item--dropdown');
-
-    // Desktop: position mega menu below nav
-    if (window.innerWidth > 720) {
-        dropdownItems.forEach(item => {
-            const dropdown = item.querySelector('.nav__dropdown');
-
-            item.addEventListener('mouseenter', function() {
-                if (dropdown && nav) {
-                    const navRect = nav.getBoundingClientRect();
-                    dropdown.style.top = navRect.bottom + 'px';
-                }
-            });
-        });
-    }
+    // Dropdown positioning handled by CSS only
 }
 
 /* ==================== PRODUCTS MORE BUTTON ==================== */

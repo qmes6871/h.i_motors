@@ -128,6 +128,9 @@ function initProductsPage() {
     // Update page based on parameters
     updatePageContent(params);
 
+    // Initialize sub-category navigation
+    initSubCategoryNav(params);
+
     // Initialize filters
     initFilters();
 
@@ -444,6 +447,82 @@ function initMobileFilter() {
             }
         });
     }
+}
+
+function initSubCategoryNav(params) {
+    const subCategoryLinks = document.querySelectorAll('.sub-category-nav__link');
+
+    if (subCategoryLinks.length === 0) return;
+
+    // Update active state based on current URL parameter
+    subCategoryLinks.forEach(link => {
+        link.classList.remove('sub-category-nav__link--active');
+
+        const href = link.getAttribute('href');
+        const linkParams = new URLSearchParams(href.split('?')[1] || '');
+        const linkCategory = linkParams.get('category');
+
+        if (linkCategory === params.category || (linkCategory === 'all' && !params.category)) {
+            link.classList.add('sub-category-nav__link--active');
+        }
+    });
+
+    // Handle click events
+    subCategoryLinks.forEach(link => {
+        link.addEventListener('click', function(e) {
+            e.preventDefault();
+
+            // Update active state
+            subCategoryLinks.forEach(l => l.classList.remove('sub-category-nav__link--active'));
+            this.classList.add('sub-category-nav__link--active');
+
+            // Get category from href
+            const href = this.getAttribute('href');
+            const linkParams = new URLSearchParams(href.split('?')[1] || '');
+            const category = linkParams.get('category');
+
+            // Filter products
+            filterBySubCategory(category);
+
+            // Update URL without page reload
+            const currentUrl = new URL(window.location);
+            if (category && category !== 'all') {
+                currentUrl.searchParams.set('category', category);
+            } else {
+                currentUrl.searchParams.delete('category');
+            }
+            window.history.pushState({}, '', currentUrl);
+        });
+    });
+}
+
+function filterBySubCategory(category) {
+    const products = document.querySelectorAll('.product-card');
+    let visibleCount = 0;
+
+    products.forEach(product => {
+        const productCategory = product.dataset.category;
+
+        if (!category || category === 'all') {
+            product.style.display = '';
+            visibleCount++;
+        } else if (productCategory === category) {
+            product.style.display = '';
+            visibleCount++;
+        } else {
+            product.style.display = 'none';
+        }
+    });
+
+    // Update product count
+    const countElement = document.querySelector('.products-header__count strong');
+    if (countElement) {
+        countElement.textContent = visibleCount;
+    }
+
+    // Show notification
+    const categoryName = category && category !== 'all' ? CATEGORIES[category] || category : 'All';
+    showNotification(`Showing ${categoryName} products`);
 }
 
 function showNotification(message) {

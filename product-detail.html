@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="assets/css/pages.css">
 </head>
 <body>
+    <div class="site-header-wrapper">
     <header class="header">
         <div class="header__topbar">
             <div class="container">
@@ -833,6 +834,7 @@
                 </div>
             </div>
     </nav>
+    </div><!-- .site-header-wrapper -->
 
     <main class="main">
         <div class="breadcrumb">
@@ -887,33 +889,27 @@
                             </div>
                         </div>
 
-                        <div class="product-info__price">
-                            <span class="price-current">$450.00</span>
-                            <span class="price-original">$520.00</span>
-                            <span class="price-discount">13% OFF</span>
-                        </div>
-
                         <div class="product-info__short-desc">
                             <p>Premium carbon fiber front lip spoiler designed specifically for the 2025 Hyundai Palisade. Adds aggressive styling while improving aerodynamics.</p>
                         </div>
 
-                        <div class="product-options">
-                            <div class="product-option">
-                                <label class="product-option__label">Color</label>
-                                <div class="product-option__choices">
-                                    <button class="color-choice color-choice--active" style="background-color: #1a1a1a;" title="Carbon Black"></button>
-                                    <button class="color-choice" style="background-color: #8B0000;" title="Carbon Red"></button>
-                                    <button class="color-choice" style="background-color: #333;" title="Matte Black"></button>
+                        <!-- 강조 정보 박스 -->
+                        <div class="product-highlight-box">
+                            <div class="highlight-row highlight-row--price">
+                                <span class="highlight-label">Price</span>
+                                <div class="highlight-value">
+                                    <span class="price-current">$450.00</span>
+                                    <span class="price-original">$520.00</span>
+                                    <span class="price-discount">13% OFF</span>
                                 </div>
-                                <span class="product-option__selected">Carbon Black</span>
                             </div>
-
-                            <div class="product-option">
-                                <label class="product-option__label">Material</label>
-                                <div class="product-option__buttons">
-                                    <button class="option-btn option-btn--active">Carbon Fiber</button>
-                                    <button class="option-btn">ABS Plastic</button>
-                                </div>
+                            <div class="highlight-row">
+                                <span class="highlight-label">Product Code</span>
+                                <span class="highlight-value">PAL25-FL-CB01</span>
+                            </div>
+                            <div class="highlight-row highlight-row--shipping">
+                                <span class="highlight-label">Shipping</span>
+                                <span class="highlight-value highlight-value--free">FREE SHIPPING</span>
                             </div>
                         </div>
 
@@ -937,10 +933,6 @@
 
                         <div class="product-meta">
                             <div class="product-meta__item">
-                                <span class="label">SKU:</span>
-                                <span class="value">PAL25-FL-CB01</span>
-                            </div>
-                            <div class="product-meta__item">
                                 <span class="label">Category:</span>
                                 <span class="value"><a href="products.html?category=aero">Aero Parts</a></span>
                             </div>
@@ -951,10 +943,6 @@
                         </div>
 
                         <div class="product-shipping-info">
-                            <div class="shipping-item">
-                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="3" width="15" height="13"></rect><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"></polygon><circle cx="5.5" cy="18.5" r="2.5"></circle><circle cx="18.5" cy="18.5" r="2.5"></circle></svg>
-                                <span>Free shipping on orders over $200</span>
-                            </div>
                             <div class="shipping-item">
                                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
                                 <span>Secure payment</span>

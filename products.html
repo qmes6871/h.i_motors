@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="assets/css/pages.css">
 </head>
 <body>
+    <div class="site-header-wrapper">
     <header class="header">
         <div class="header__topbar">
             <div class="container">
@@ -833,6 +834,7 @@
                 </div>
             </div>
     </nav>
+    </div><!-- .site-header-wrapper -->
 
     <main class="main">
         <div class="breadcrumb">
@@ -847,49 +849,7 @@
 
         <section class="products-page">
             <div class="container">
-                <div class="products-layout">
-                    <!-- Sidebar Filters -->
-                    <aside class="products-sidebar">
-                        <div class="filter-section">
-                            <h3 class="filter-title">Category</h3>
-                            <ul class="filter-list">
-                                <li><label class="filter-checkbox"><input type="checkbox" checked> <span>All Categories</span> <span class="count">(124)</span></label></li>
-                                <li><label class="filter-checkbox"><input type="checkbox"> <span>Aero Parts</span> <span class="count">(28)</span></label></li>
-                                <li><label class="filter-checkbox"><input type="checkbox"> <span>Exterior Items</span> <span class="count">(35)</span></label></li>
-                                <li><label class="filter-checkbox"><input type="checkbox"> <span>Interior Items</span> <span class="count">(22)</span></label></li>
-                                <li><label class="filter-checkbox"><input type="checkbox"> <span>LED Products</span> <span class="count">(18)</span></label></li>
-                                <li><label class="filter-checkbox"><input type="checkbox"> <span>Tuning Parts</span> <span class="count">(15)</span></label></li>
-                                <li><label class="filter-checkbox"><input type="checkbox"> <span>Other</span> <span class="count">(6)</span></label></li>
-                            </ul>
-                        </div>
-
-                        <div class="filter-section">
-                            <h3 class="filter-title">Price Range</h3>
-                            <div class="price-range">
-                                <div class="price-inputs">
-                                    <input type="number" placeholder="Min" class="form-input" value="0">
-                                    <span>~</span>
-                                    <input type="number" placeholder="Max" class="form-input" value="1000">
-                                </div>
-                                <input type="range" class="price-slider" min="0" max="1000" value="1000">
-                            </div>
-                        </div>
-
-                        <div class="filter-section">
-                            <h3 class="filter-title">Material</h3>
-                            <ul class="filter-list">
-                                <li><label class="filter-checkbox"><input type="checkbox"> <span>Carbon Fiber</span></label></li>
-                                <li><label class="filter-checkbox"><input type="checkbox"> <span>ABS Plastic</span></label></li>
-                                <li><label class="filter-checkbox"><input type="checkbox"> <span>Stainless Steel</span></label></li>
-                                <li><label class="filter-checkbox"><input type="checkbox"> <span>Aluminum</span></label></li>
-                                <li><label class="filter-checkbox"><input type="checkbox"> <span>Leather</span></label></li>
-                            </ul>
-                        </div>
-
-                        <button class="btn btn--primary btn--full filter-apply">Apply Filters</button>
-                        <button class="btn btn--outline btn--full filter-reset">Reset</button>
-                    </aside>
-
+                <div class="products-layout products-layout--full">
                     <!-- Products Grid -->
                     <div class="products-main">
                         <div class="products-header">
@@ -898,10 +858,6 @@
                                 <p class="products-header__count">Showing <strong>124</strong> products</p>
                             </div>
                             <div class="products-header__controls">
-                                <button class="filter-toggle-btn">
-                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="4" y1="21" x2="4" y2="14"></line><line x1="4" y1="10" x2="4" y2="3"></line><line x1="12" y1="21" x2="12" y2="12"></line><line x1="12" y1="8" x2="12" y2="3"></line><line x1="20" y1="21" x2="20" y2="16"></line><line x1="20" y1="12" x2="20" y2="3"></line><line x1="1" y1="14" x2="7" y2="14"></line><line x1="9" y1="8" x2="15" y2="8"></line><line x1="17" y1="16" x2="23" y2="16"></line></svg>
-                                    Filters
-                                </button>
                                 <select class="form-select products-sort">
                                     <option value="newest">Newest</option>
                                     <option value="price-low">Price: Low to High</option>
@@ -920,9 +876,31 @@
                             </div>
                         </div>
 
+                        <!-- Visual Banner -->
+                        <div class="products-visual">
+                            <img src="https://via.placeholder.com/1200x300/1a1a1a/ffffff?text=Palisade+2025+Collection" alt="Palisade 2025 Collection">
+                            <div class="products-visual__overlay">
+                                <h2 class="products-visual__title">Palisade 2025</h2>
+                                <p class="products-visual__desc">Premium accessories for your new Palisade</p>
+                            </div>
+                        </div>
+
+                        <!-- Sub Category Navigation -->
+                        <nav class="sub-category-nav">
+                            <ul class="sub-category-nav__list">
+                                <li><a href="products.html?category=all" class="sub-category-nav__link sub-category-nav__link--active">All</a></li>
+                                <li><a href="products.html?category=aero-parts" class="sub-category-nav__link">Aero Parts</a></li>
+                                <li><a href="products.html?category=exterior" class="sub-category-nav__link">Exterior</a></li>
+                                <li><a href="products.html?category=interior" class="sub-category-nav__link">Interior</a></li>
+                                <li><a href="products.html?category=led" class="sub-category-nav__link">LED</a></li>
+                                <li><a href="products.html?category=tuning" class="sub-category-nav__link">Tuning Parts</a></li>
+                                <li><a href="products.html?category=other" class="sub-category-nav__link">Other</a></li>
+                            </ul>
+                        </nav>
+
                         <!-- Products Grid -->
                         <div class="products__grid products__grid--4col">
-                            <div class="product-card">
+                            <div class="product-card" data-category="aero-parts">
                                 <div class="product-card__image">
                                     <a href="product-detail.html"><img src="https://via.placeholder.com/300x225/f5f5f5/333?text=Front+Lip" alt="Front Lip Spoiler"></a>
                                     <span class="product-card__badge product-card__badge--new">NEW</span>
@@ -936,7 +914,7 @@
                                 </div>
                             </div>
 
-                            <div class="product-card">
+                            <div class="product-card" data-category="aero-parts">
                                 <div class="product-card__image">
                                     <a href="product-detail.html"><img src="https://via.placeholder.com/300x225/f5f5f5/333?text=Side+Skirt" alt="Side Skirt"></a>
                                     <button class="product-card__wish"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg></button>
@@ -949,7 +927,7 @@
                                 </div>
                             </div>
 
-                            <div class="product-card">
+                            <div class="product-card" data-category="aero-parts">
                                 <div class="product-card__image">
                                     <a href="product-detail.html"><img src="https://via.placeholder.com/300x225/f5f5f5/333?text=Rear+Diffuser" alt="Rear Diffuser"></a>
                                     <span class="product-card__badge product-card__badge--sale">SALE</span>
@@ -963,7 +941,7 @@
                                 </div>
                             </div>
 
-                            <div class="product-card">
+                            <div class="product-card" data-category="interior">
                                 <div class="product-card__image">
                                     <a href="product-detail.html"><img src="https://via.placeholder.com/300x225/f5f5f5/333?text=Floor+Mat" alt="Floor Mat"></a>
                                     <button class="product-card__wish"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg></button>
@@ -976,7 +954,7 @@
                                 </div>
                             </div>
 
-                            <div class="product-card">
+                            <div class="product-card" data-category="led">
                                 <div class="product-card__image">
                                     <a href="product-detail.html"><img src="https://via.placeholder.com/300x225/f5f5f5/333?text=LED+Kit" alt="LED Kit"></a>
                                     <span class="product-card__badge product-card__badge--hot">HOT</span>
@@ -990,7 +968,7 @@
                                 </div>
                             </div>
 
-                            <div class="product-card">
+                            <div class="product-card" data-category="interior">
                                 <div class="product-card__image">
                                     <a href="product-detail.html"><img src="https://via.placeholder.com/300x225/f5f5f5/333?text=Trunk+Mat" alt="Trunk Mat"></a>
                                     <button class="product-card__wish"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg></button>
@@ -1003,7 +981,7 @@
                                 </div>
                             </div>
 
-                            <div class="product-card">
+                            <div class="product-card" data-category="led">
                                 <div class="product-card__image">
                                     <a href="product-detail.html"><img src="https://via.placeholder.com/300x225/f5f5f5/333?text=Door+Sill" alt="Door Sill"></a>
                                     <button class="product-card__wish"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg></button>
@@ -1016,7 +994,7 @@
                                 </div>
                             </div>
 
-                            <div class="product-card">
+                            <div class="product-card" data-category="exterior">
                                 <div class="product-card__image">
                                     <a href="product-detail.html"><img src="https://via.placeholder.com/300x225/f5f5f5/333?text=Grille" alt="Grille"></a>
                                     <button class="product-card__wish"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg></button>
@@ -1026,6 +1004,169 @@
                                     <h3 class="product-card__title"><a href="product-detail.html">Palisade 2025 Custom Front Grille - Gloss Black</a></h3>
                                     <p class="product-card__price"><span class="product-card__price-sale">$320.00</span></p>
                                     <div class="product-card__rating"><span class="stars">★★★★☆</span><span class="count">(12)</span></div>
+                                </div>
+                            </div>
+
+                            <div class="product-card" data-category="exterior">
+                                <div class="product-card__image">
+                                    <a href="product-detail.html"><img src="https://via.placeholder.com/300x225/f5f5f5/333?text=Roof+Rack" alt="Roof Rack"></a>
+                                    <span class="product-card__badge product-card__badge--new">NEW</span>
+                                    <button class="product-card__wish"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg></button>
+                                    <div class="product-card__overlay"><button class="btn btn--primary">ADD OPTION</button></div>
+                                </div>
+                                <div class="product-card__content">
+                                    <h3 class="product-card__title"><a href="product-detail.html">Palisade 2025 Premium Roof Rack Cross Bars</a></h3>
+                                    <p class="product-card__price"><span class="product-card__price-sale">$280.00</span></p>
+                                    <div class="product-card__rating"><span class="stars">★★★★★</span><span class="count">(19)</span></div>
+                                </div>
+                            </div>
+
+                            <div class="product-card" data-category="exterior">
+                                <div class="product-card__image">
+                                    <a href="product-detail.html"><img src="https://via.placeholder.com/300x225/f5f5f5/333?text=Mirror+Cover" alt="Mirror Cover"></a>
+                                    <button class="product-card__wish"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg></button>
+                                    <div class="product-card__overlay"><button class="btn btn--primary">ADD OPTION</button></div>
+                                </div>
+                                <div class="product-card__content">
+                                    <h3 class="product-card__title"><a href="product-detail.html">Palisade 2025 Carbon Side Mirror Covers</a></h3>
+                                    <p class="product-card__price"><span class="product-card__price-original">$180.00</span><span class="product-card__price-sale">$149.00</span></p>
+                                    <div class="product-card__rating"><span class="stars">★★★★☆</span><span class="count">(8)</span></div>
+                                </div>
+                            </div>
+
+                            <div class="product-card" data-category="exterior">
+                                <div class="product-card__image">
+                                    <a href="product-detail.html"><img src="https://via.placeholder.com/300x225/f5f5f5/333?text=Wheel+Cap" alt="Wheel Cap"></a>
+                                    <span class="product-card__badge product-card__badge--sale">SALE</span>
+                                    <button class="product-card__wish"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg></button>
+                                    <div class="product-card__overlay"><button class="btn btn--primary">ADD OPTION</button></div>
+                                </div>
+                                <div class="product-card__content">
+                                    <h3 class="product-card__title"><a href="product-detail.html">Palisade 2025 OEM Wheel Center Caps Set</a></h3>
+                                    <p class="product-card__price"><span class="product-card__price-original">$95.00</span><span class="product-card__price-sale">$69.00</span></p>
+                                    <div class="product-card__rating"><span class="stars">★★★★★</span><span class="count">(45)</span></div>
+                                </div>
+                            </div>
+
+                            <div class="product-card" data-category="exterior">
+                                <div class="product-card__image">
+                                    <a href="product-detail.html"><img src="https://via.placeholder.com/300x225/f5f5f5/333?text=Mud+Guard" alt="Mud Guard"></a>
+                                    <button class="product-card__wish"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg></button>
+                                    <div class="product-card__overlay"><button class="btn btn--primary">ADD OPTION</button></div>
+                                </div>
+                                <div class="product-card__content">
+                                    <h3 class="product-card__title"><a href="product-detail.html">Palisade 2025 Premium Mud Guards Set</a></h3>
+                                    <p class="product-card__price"><span class="product-card__price-sale">$75.00</span></p>
+                                    <div class="product-card__rating"><span class="stars">★★★★☆</span><span class="count">(22)</span></div>
+                                </div>
+                            </div>
+
+                            <div class="product-card" data-category="interior">
+                                <div class="product-card__image">
+                                    <a href="product-detail.html"><img src="https://via.placeholder.com/300x225/f5f5f5/333?text=Sunshade" alt="Sunshade"></a>
+                                    <span class="product-card__badge product-card__badge--hot">HOT</span>
+                                    <button class="product-card__wish"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg></button>
+                                    <div class="product-card__overlay"><button class="btn btn--primary">ADD OPTION</button></div>
+                                </div>
+                                <div class="product-card__content">
+                                    <h3 class="product-card__title"><a href="product-detail.html">Palisade 2025 Custom Fit Sunshade Set</a></h3>
+                                    <p class="product-card__price"><span class="product-card__price-sale">$120.00</span></p>
+                                    <div class="product-card__rating"><span class="stars">★★★★★</span><span class="count">(67)</span></div>
+                                </div>
+                            </div>
+
+                            <div class="product-card" data-category="interior">
+                                <div class="product-card__image">
+                                    <a href="product-detail.html"><img src="https://via.placeholder.com/300x225/f5f5f5/333?text=Cargo+Net" alt="Cargo Net"></a>
+                                    <button class="product-card__wish"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg></button>
+                                    <div class="product-card__overlay"><button class="btn btn--primary">ADD OPTION</button></div>
+                                </div>
+                                <div class="product-card__content">
+                                    <h3 class="product-card__title"><a href="product-detail.html">Palisade 2025 Trunk Cargo Net Organizer</a></h3>
+                                    <p class="product-card__price"><span class="product-card__price-sale">$45.00</span></p>
+                                    <div class="product-card__rating"><span class="stars">★★★★☆</span><span class="count">(33)</span></div>
+                                </div>
+                            </div>
+
+                            <div class="product-card" data-category="interior">
+                                <div class="product-card__image">
+                                    <a href="product-detail.html"><img src="https://via.placeholder.com/300x225/f5f5f5/333?text=Seat+Cover" alt="Seat Cover"></a>
+                                    <span class="product-card__badge product-card__badge--new">NEW</span>
+                                    <button class="product-card__wish"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg></button>
+                                    <div class="product-card__overlay"><button class="btn btn--primary">ADD OPTION</button></div>
+                                </div>
+                                <div class="product-card__content">
+                                    <h3 class="product-card__title"><a href="product-detail.html">Palisade 2025 Premium Leather Seat Covers</a></h3>
+                                    <p class="product-card__price"><span class="product-card__price-original">$650.00</span><span class="product-card__price-sale">$549.00</span></p>
+                                    <div class="product-card__rating"><span class="stars">★★★★★</span><span class="count">(14)</span></div>
+                                </div>
+                            </div>
+
+                            <div class="product-card" data-category="tuning">
+                                <div class="product-card__image">
+                                    <a href="product-detail.html"><img src="https://via.placeholder.com/300x225/f5f5f5/333?text=Exhaust+Tip" alt="Exhaust Tip"></a>
+                                    <button class="product-card__wish"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg></button>
+                                    <div class="product-card__overlay"><button class="btn btn--primary">ADD OPTION</button></div>
+                                </div>
+                                <div class="product-card__content">
+                                    <h3 class="product-card__title"><a href="product-detail.html">Palisade 2025 Dual Exhaust Tips - Chrome</a></h3>
+                                    <p class="product-card__price"><span class="product-card__price-sale">$189.00</span></p>
+                                    <div class="product-card__rating"><span class="stars">★★★★☆</span><span class="count">(28)</span></div>
+                                </div>
+                            </div>
+
+                            <div class="product-card" data-category="exterior">
+                                <div class="product-card__image">
+                                    <a href="product-detail.html"><img src="https://via.placeholder.com/300x225/f5f5f5/333?text=Door+Handle" alt="Door Handle"></a>
+                                    <span class="product-card__badge product-card__badge--sale">SALE</span>
+                                    <button class="product-card__wish"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg></button>
+                                    <div class="product-card__overlay"><button class="btn btn--primary">ADD OPTION</button></div>
+                                </div>
+                                <div class="product-card__content">
+                                    <h3 class="product-card__title"><a href="product-detail.html">Palisade 2025 Chrome Door Handle Covers</a></h3>
+                                    <p class="product-card__price"><span class="product-card__price-original">$85.00</span><span class="product-card__price-sale">$69.00</span></p>
+                                    <div class="product-card__rating"><span class="stars">★★★★★</span><span class="count">(41)</span></div>
+                                </div>
+                            </div>
+
+                            <div class="product-card" data-category="led">
+                                <div class="product-card__image">
+                                    <a href="product-detail.html"><img src="https://via.placeholder.com/300x225/f5f5f5/333?text=Ambient+Light" alt="Ambient Light"></a>
+                                    <span class="product-card__badge product-card__badge--hot">HOT</span>
+                                    <button class="product-card__wish"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg></button>
+                                    <div class="product-card__overlay"><button class="btn btn--primary">ADD OPTION</button></div>
+                                </div>
+                                <div class="product-card__content">
+                                    <h3 class="product-card__title"><a href="product-detail.html">Palisade 2025 Interior Ambient Lighting Kit</a></h3>
+                                    <p class="product-card__price"><span class="product-card__price-sale">$299.00</span></p>
+                                    <div class="product-card__rating"><span class="stars">★★★★★</span><span class="count">(67)</span></div>
+                                </div>
+                            </div>
+
+                            <div class="product-card" data-category="exterior">
+                                <div class="product-card__image">
+                                    <a href="product-detail.html"><img src="https://via.placeholder.com/300x225/f5f5f5/333?text=Wind+Deflector" alt="Wind Deflector"></a>
+                                    <span class="product-card__badge product-card__badge--new">NEW</span>
+                                    <button class="product-card__wish"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg></button>
+                                    <div class="product-card__overlay"><button class="btn btn--primary">ADD OPTION</button></div>
+                                </div>
+                                <div class="product-card__content">
+                                    <h3 class="product-card__title"><a href="product-detail.html">Palisade 2025 Window Wind Deflectors Set</a></h3>
+                                    <p class="product-card__price"><span class="product-card__price-sale">$129.00</span></p>
+                                    <div class="product-card__rating"><span class="stars">★★★★☆</span><span class="count">(52)</span></div>
+                                </div>
+                            </div>
+
+                            <div class="product-card" data-category="interior">
+                                <div class="product-card__image">
+                                    <a href="product-detail.html"><img src="https://via.placeholder.com/300x225/f5f5f5/333?text=Cup+Holder" alt="Cup Holder"></a>
+                                    <button class="product-card__wish"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg></button>
+                                    <div class="product-card__overlay"><button class="btn btn--primary">ADD OPTION</button></div>
+                                </div>
+                                <div class="product-card__content">
+                                    <h3 class="product-card__title"><a href="product-detail.html">Palisade 2025 Center Console Cup Holder Insert</a></h3>
+                                    <p class="product-card__price"><span class="product-card__price-sale">$35.00</span></p>
+                                    <div class="product-card__rating"><span class="stars">★★★★☆</span><span class="count">(89)</span></div>
                                 </div>
                             </div>
                         </div>

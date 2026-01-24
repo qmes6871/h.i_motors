@@ -89,6 +89,14 @@ button {
 }
 
 /* ==================== HEADER ==================== */
+/* Site Header Wrapper (Sticky) */
+.site-header-wrapper {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    background-color: #fff;
+}
+
 .header {
     background-color: #fff;
 }
@@ -96,7 +104,6 @@ button {
 /* Section 1: Top Bar - User Actions & Search */
 .header__topbar {
     background-color: #f8f8f8;
-    border-bottom: 1px solid #e0e0e0;
     padding: 8px 0;
 }
 
@@ -161,7 +168,6 @@ button {
 /* Section 2: Logo Section (Centered) */
 .header__logo-section {
     padding: 25px 0;
-    border-bottom: 1px solid #e0e0e0;
 }
 
 .header__logo-content {
@@ -313,16 +319,12 @@ button {
     text-align: center;
 }
 
-/* Section 3: Main Navigation (Centered & Sticky) */
+/* Section 3: Main Navigation (Centered) */
 .nav {
     background-color: #fff;
-    padding: 12px 0;
-    position: sticky;
-    top: 0;
-    z-index: 1000;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    border-bottom: 1px solid #999;
 }
-
 
 .nav__content {
     display: flex;
@@ -334,18 +336,19 @@ button {
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 50px;
+    gap: 40px;
 }
 
 .nav__item {
-    position: static;
+    position: relative;
 }
 
 .nav__link {
+    display: block;
     font-size: 15px;
     font-weight: 500;
     color: #333;
-    padding: 10px 0;
+    padding: 12px 5px;
     transition: color 0.3s ease;
 }
 
@@ -353,41 +356,18 @@ button {
     color: #1a1a1a;
 }
 
-/* Mega Menu Dropdown */
+/* Dropdown Menu */
 .nav__dropdown {
-    position: fixed;
-    top: auto;
+    position: absolute;
+    top: 100%;
     left: 0;
-    width: 100%;
+    min-width: 260px;
+    margin-top: 0;
     background-color: #fff;
-    border-top: 1px solid #e0e0e0;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
-    max-height: 70vh;
-    overflow-y: auto;
+    border: 1px solid #ddd;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
     display: none;
-    z-index: 999;
-}
-
-.nav__dropdown--wide {
-    /* Same as regular dropdown for mega menu */
-}
-
-/* Custom scrollbar for dropdown */
-.nav__dropdown::-webkit-scrollbar {
-    width: 8px;
-}
-
-.nav__dropdown::-webkit-scrollbar-track {
-    background: #f1f1f1;
-}
-
-.nav__dropdown::-webkit-scrollbar-thumb {
-    background: #888;
-    border-radius: 4px;
-}
-
-.nav__dropdown::-webkit-scrollbar-thumb:hover {
-    background: #555;
+    z-index: 9999;
 }
 
 .nav__item--dropdown:hover .nav__dropdown {
@@ -395,39 +375,41 @@ button {
 }
 
 .nav__dropdown-content {
-    max-width: 1400px;
-    margin: 0 auto;
-    padding: 40px 20px;
+    padding: 10px;
 }
 
 .nav__submenu {
     display: grid;
-    grid-template-columns: repeat(6, 1fr);
-    gap: 30px;
-}
-
-.nav__submenu--wide {
-    grid-template-columns: repeat(6, 1fr);
-    gap: 30px;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 5px;
 }
 
 .nav__submenu-item {
-    margin-bottom: 20px;
+    margin-bottom: 0;
 }
 
 .nav__submenu-title {
-    font-size: 14px;
-    font-weight: 700;
-    color: #1a1a1a;
-    margin-bottom: 12px;
-    padding-bottom: 8px;
-    border-bottom: 2px solid #1a1a1a;
+    font-size: 13px;
+    font-weight: 500;
+    color: #333;
+    padding: 6px 8px;
+    border-bottom: none;
+    transition: background-color 0.2s ease;
+    white-space: nowrap;
+}
+
+.nav__submenu-title:hover {
+    background-color: #f5f5f5;
+}
+
+.nav__submenu-item a {
+    display: block;
+    text-decoration: none;
+    color: inherit;
 }
 
 .nav__submenu-list {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
+    display: none;
 }
 
 .nav__submenu-list a {
@@ -585,53 +567,48 @@ button {
 }
 
 .products__tab {
-    padding: 12px 30px;
+    padding: 10px 20px;
     font-size: 16px;
     font-weight: 600;
     font-family: 'Montserrat', sans-serif;
-    color: #666;
-    background-color: #fff;
-    border: 2px solid #e0e0e0;
-    border-radius: 30px;
-    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    color: #999;
+    background: none;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
     position: relative;
-    overflow: hidden;
 }
 
-.products__tab::before {
+.products__tab::after {
     content: '';
     position: absolute;
-    top: 50%;
+    bottom: 5px;
     left: 50%;
+    transform: translateX(-50%);
     width: 0;
-    height: 0;
-    border-radius: 50%;
-    background: rgba(26, 26, 26, 0.1);
-    transform: translate(-50%, -50%);
-    transition: width 0.6s ease, height 0.6s ease;
-}
-
-.products__tab:hover::before {
-    width: 300px;
-    height: 300px;
+    height: 2px;
+    background: #ccc;
+    border-radius: 2px;
+    transition: all 0.3s ease;
+    box-shadow: none;
 }
 
 .products__tab:hover {
     color: #1a1a1a;
-    border-color: #1a1a1a;
-    transform: translateY(-3px);
-    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+}
+
+.products__tab:hover::after {
+    width: 80%;
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.2), 0 0 15px rgba(0, 0, 0, 0.1);
 }
 
 .products__tab--active {
-    color: #fff;
-    background-color: #1a1a1a;
-    border-color: #1a1a1a;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    color: #1a1a1a;
 }
 
-.products__tab--active:hover {
-    color: #fff;
+.products__tab--active::after {
+    width: 80%;
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.2), 0 0 15px rgba(0, 0, 0, 0.1);
 }
 
 .products__content {
@@ -707,12 +684,12 @@ button {
 
 .product-card__badge {
     position: absolute;
-    top: 10px;
-    left: 10px;
+    top: 8px;
+    left: 8px;
     background-color: #e74c3c;
     color: #fff;
-    padding: 5px 12px;
-    font-size: 12px;
+    padding: 3px 8px;
+    font-size: 10px;
     font-weight: 600;
     border-radius: 4px;
     animation: pulse 2s ease-in-out infinite;
@@ -1231,9 +1208,7 @@ button {
     }
 
     .mobile-menu-overlay .nav__submenu-list {
-        display: flex;
-        flex-direction: column;
-        gap: 8px;
+        display: none;
     }
 
     .mobile-menu-overlay .nav__submenu-list li a {
@@ -1268,13 +1243,12 @@ button {
     }
 
     .products__tabs {
-        flex-direction: column;
-        gap: 10px;
+        flex-wrap: wrap;
+        gap: 5px 15px;
     }
 
     .products__tab {
-        width: 100%;
-        padding: 10px 20px;
+        padding: 8px 10px;
         font-size: 14px;
     }
 
@@ -1591,9 +1565,6 @@ button {
     animation: fadeIn 0.6s ease;
 }
 
-.nav__dropdown {
-    animation: slideDown 0.3s ease;
-}
 
 .product-card {
     animation: fadeInUp 0.6s ease both;
