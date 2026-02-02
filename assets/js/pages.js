@@ -304,7 +304,41 @@ function initFormValidation() {
                 return;
             }
 
-            // Simulate form submission
+            // Get form data
+            const name = document.getElementById('name')?.value || '';
+            const email = document.getElementById('email')?.value || '';
+            const phone = document.getElementById('phone')?.value || '';
+
+            // Get existing members from localStorage
+            let members = JSON.parse(localStorage.getItem('hiMotors_members') || '[]');
+
+            // Check if email already exists
+            if (members.some(m => m.email === email)) {
+                showNotification('This email is already registered!', 'error');
+                return;
+            }
+
+            // Add new member
+            const maxId = members.reduce((max, m) => Math.max(max, m.id), 0);
+            const newMember = {
+                id: maxId + 1,
+                name: name,
+                email: email,
+                phone: phone,
+                password: password.value,
+                address: '',
+                joinedDate: new Date().toISOString().split('T')[0],
+                orders: 0
+            };
+
+            members.push(newMember);
+            localStorage.setItem('hiMotors_members', JSON.stringify(members));
+
+            // Mark as initialized if not already
+            if (!localStorage.getItem('hiMotors_initialized')) {
+                localStorage.setItem('hiMotors_initialized', 'true');
+            }
+
             showNotification('Account created successfully!');
             setTimeout(() => {
                 window.location.href = 'login.html';
@@ -317,13 +351,72 @@ function initFormValidation() {
     if (loginForm) {
         loginForm.addEventListener('submit', function(e) {
             e.preventDefault();
-            showNotification('Login successful! Redirecting...');
-            setTimeout(() => {
-                window.location.href = 'index.html';
-            }, 2000);
+
+            const email = document.getElementById('email')?.value || '';
+            const password = document.getElementById('password')?.value || '';
+
+            // Get members from localStorage
+            const members = JSON.parse(localStorage.getItem('hiMotors_members') || '[]');
+
+            // Find member
+            const member = members.find(m => m.email === email && m.password === password);
+
+            if (member) {
+                // Save login session
+                sessionStorage.setItem('hiMotors_userLoggedIn', 'true');
+                sessionStorage.setItem('hiMotors_currentUser', JSON.stringify({
+                    id: member.id,
+                    name: member.name,
+                    email: member.email
+                }));
+
+                showNotification(`Welcome back, ${member.name}!`);
+                setTimeout(() => {
+                    window.location.href = 'index.html';
+                }, 1500);
+            } else {
+                showNotification('Invalid email or password!', 'error');
+            }
         });
     }
 }
+
+// Check user login status and update UI
+function checkUserLoginStatus() {
+    const isLoggedIn = sessionStorage.getItem('hiMotors_userLoggedIn');
+    const currentUser = JSON.parse(sessionStorage.getItem('hiMotors_currentUser') || 'null');
+
+    const loginLink = document.querySelector('a[href="login.html"]');
+    const signupLink = document.querySelector('a[href="signup.html"]');
+
+    if (isLoggedIn && currentUser && loginLink) {
+        // Replace login link with user name
+        loginLink.textContent = currentUser.name;
+        loginLink.href = '#';
+        loginLink.addEventListener('click', function(e) {
+            e.preventDefault();
+            if (confirm('Do you want to logout?')) {
+                sessionStorage.removeItem('hiMotors_userLoggedIn');
+                sessionStorage.removeItem('hiMotors_currentUser');
+                window.location.reload();
+            }
+        });
+
+        // Hide signup link
+        if (signupLink) {
+            signupLink.style.display = 'none';
+            const prevDivider = signupLink.previousElementSibling;
+            if (prevDivider && prevDivider.classList.contains('divider')) {
+                prevDivider.style.display = 'none';
+            }
+        }
+    }
+}
+
+// Initialize on page load
+document.addEventListener('DOMContentLoaded', function() {
+    checkUserLoginStatus();
+});
 
 /* ==================== VIEW TOGGLE ==================== */
 const viewBtns = document.querySelectorAll('.view-btn');

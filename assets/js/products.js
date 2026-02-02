@@ -1,11 +1,61 @@
 /**
  * Products Page - Dynamic Filtering System
  * Handles URL parameters for brand, model, and category filtering
+ * Integrated with Admin Dashboard localStorage
  */
 
 document.addEventListener('DOMContentLoaded', function() {
     initProductsPage();
 });
+
+// Data Manager - Get data from localStorage or use defaults
+const DataStore = {
+    get(key) {
+        const data = localStorage.getItem(`hiMotors_${key}`);
+        return data ? JSON.parse(data) : null;
+    },
+
+    getProducts() {
+        const stored = this.get('products');
+        return stored || DEFAULT_PRODUCTS;
+    },
+
+    getCategories() {
+        const stored = this.get('categories');
+        return stored || DEFAULT_CATEGORIES;
+    },
+
+    getBrands() {
+        const stored = this.get('brands');
+        return stored || null;
+    }
+};
+
+// Default categories (fallback)
+const DEFAULT_CATEGORIES = {
+    'aero-parts': 'Aero Parts',
+    'exterior': 'Exterior Items',
+    'interior': 'Interior Items',
+    'led': 'LED Products',
+    'tuning': 'Tuning Parts',
+    'other': 'Other'
+};
+
+// Default products (fallback)
+const DEFAULT_PRODUCTS = [
+    { id: 1, name: 'Front Lip Spoiler - Carbon', category: 'aero-parts', brand: 'hyundai', model: 'Palisade', price: 450, originalPrice: null, badge: 'new', stock: 50, rating: 5, reviews: 24, image: 'https://via.placeholder.com/300x225/f5f5f5/333?text=Front+Lip' },
+    { id: 2, name: 'Side Skirt Extension Kit', category: 'aero-parts', brand: 'hyundai', model: 'Santa Fe', price: 380, originalPrice: 420, badge: null, stock: 30, rating: 4, reviews: 18, image: 'https://via.placeholder.com/300x225/f5f5f5/333?text=Side+Skirt' },
+    { id: 3, name: 'Rear Diffuser - Matte Black', category: 'aero-parts', brand: 'genesis', model: 'GV80', price: 299, originalPrice: 350, badge: 'sale', stock: 25, rating: 5, reviews: 31, image: 'https://via.placeholder.com/300x225/f5f5f5/333?text=Diffuser' },
+    { id: 4, name: 'Premium All Weather Floor Mat Set', category: 'interior', brand: 'kia', model: 'Carnival', price: 189, originalPrice: null, badge: null, stock: 100, rating: 5, reviews: 56, image: 'https://via.placeholder.com/300x225/f5f5f5/333?text=Floor+Mat' },
+    { id: 5, name: 'Premium LED Interior Light Kit', category: 'led', brand: '', model: '', price: 125, originalPrice: null, badge: 'hot', stock: 80, rating: 5, reviews: 42, image: 'https://via.placeholder.com/300x225/f5f5f5/333?text=LED+Kit' },
+    { id: 6, name: 'Trunk Cargo Mat - All Weather', category: 'interior', brand: 'hyundai', model: 'Tucson', price: 89, originalPrice: null, badge: null, stock: 60, rating: 4, reviews: 15, image: 'https://via.placeholder.com/300x225/f5f5f5/333?text=Trunk+Mat' },
+    { id: 7, name: 'LED Door Sill Protector Set', category: 'led', brand: '', model: '', price: 145, originalPrice: null, badge: null, stock: 45, rating: 5, reviews: 28, image: 'https://via.placeholder.com/300x225/f5f5f5/333?text=Door+Sill' },
+    { id: 8, name: 'Custom Front Grille - Gloss Black', category: 'exterior', brand: 'kia', model: 'Sportage', price: 320, originalPrice: null, badge: null, stock: 20, rating: 4, reviews: 12, image: 'https://via.placeholder.com/300x225/f5f5f5/333?text=Grille' },
+    { id: 9, name: 'Chrome Door Handle Cover Set', category: 'exterior', brand: '', model: '', price: 85, originalPrice: null, badge: null, stock: 70, rating: 4, reviews: 33, image: 'https://via.placeholder.com/300x225/f5f5f5/333?text=Handle' },
+    { id: 10, name: 'LED Fog Light Kit - 6000K', category: 'led', brand: '', model: '', price: 165, originalPrice: 195, badge: 'sale', stock: 55, rating: 5, reviews: 47, image: 'https://via.placeholder.com/300x225/f5f5f5/333?text=Fog+Light' },
+    { id: 11, name: 'Sport Steering Wheel Cover', category: 'interior', brand: '', model: '', price: 79, originalPrice: null, badge: null, stock: 90, rating: 4, reviews: 21, image: 'https://via.placeholder.com/300x225/f5f5f5/333?text=Steering' },
+    { id: 12, name: 'Performance Air Intake System', category: 'tuning', brand: 'genesis', model: 'GV70', price: 385, originalPrice: null, badge: 'new', stock: 15, rating: 5, reviews: 8, image: 'https://via.placeholder.com/300x225/f5f5f5/333?text=Air+Intake' }
+];
 
 // Product data configuration
 const BRANDS = {
@@ -220,37 +270,116 @@ function generateProducts(params, modelName) {
     const productsGrid = document.querySelector('.products__grid');
     if (!productsGrid) return;
 
-    // Filter products by category if specified
-    let products = [...SAMPLE_PRODUCTS];
+    // Get products from localStorage or use defaults
+    let products = DataStore.getProducts();
+    const categories = DataStore.getCategories();
+    const brands = DataStore.getBrands();
+
+    // Filter by brand
+    if (params.brand) {
+        products = products.filter(p => p.brand === params.brand);
+    }
+
+    // Filter by model (partial match)
+    if (params.model) {
+        const modelName = params.model.toLowerCase();
+        products = products.filter(p =>
+            p.model && p.model.toLowerCase().includes(modelName.split('-')[0])
+        );
+    }
+
+    // Filter by category
     if (params.category) {
         products = products.filter(p => p.category === params.category);
     }
 
+    // Filter out-of-stock items (optional: show them but mark as out of stock)
+    products = products.filter(p => p.stock > 0);
+
+    // Update product count
+    const countElement = document.querySelector('.products-header__count strong');
+    if (countElement) {
+        countElement.textContent = products.length;
+    }
+
+    if (products.length === 0) {
+        productsGrid.innerHTML = '<div class="no-products"><p>No products found in this category.</p></div>';
+        return;
+    }
+
     // Generate product cards with dynamic model name
     productsGrid.innerHTML = products.map(product => {
-        const productName = modelName !== 'All Products' ? `${modelName} ${product.name}` : product.name;
+        const displayName = modelName !== 'All Products' ? `${modelName} ${product.name}` : product.name;
         const badgeHtml = product.badge ? `<span class="product-card__badge product-card__badge--${product.badge}">${product.badge.toUpperCase()}</span>` : '';
         const priceHtml = product.originalPrice
             ? `<span class="product-card__price-original">$${product.originalPrice.toFixed(2)}</span><span class="product-card__price-sale">$${product.price.toFixed(2)}</span>`
             : `<span class="product-card__price-sale">$${product.price.toFixed(2)}</span>`;
-        const stars = '★'.repeat(product.rating) + '☆'.repeat(5 - product.rating);
+        const rating = product.rating || 5;
+        const reviews = product.reviews || 0;
+        const stars = '★'.repeat(rating) + '☆'.repeat(5 - rating);
+        const imageUrl = product.image || `https://via.placeholder.com/300x225/f5f5f5/333?text=${encodeURIComponent(product.name.substring(0, 10))}`;
 
         return `
-            <div class="product-card" data-category="${product.category}">
+            <div class="product-card" data-category="${product.category}" data-product-id="${product.id}">
                 <div class="product-card__image">
-                    <a href="product-detail.html?id=${product.id}"><img src="https://via.placeholder.com/300x225/f5f5f5/333?text=${product.image}" alt="${productName}"></a>
+                    <a href="product-detail.html?id=${product.id}"><img src="${imageUrl}" alt="${displayName}"></a>
                     ${badgeHtml}
-                    <button class="product-card__wish"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg></button>
-                    <div class="product-card__overlay"><button class="btn btn--primary">ADD OPTION</button></div>
+                    <button class="product-card__wish" data-product-id="${product.id}"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg></button>
+                    <div class="product-card__overlay"><button class="btn btn--primary" onclick="addToCart(${product.id})">ADD OPTION</button></div>
                 </div>
                 <div class="product-card__content">
-                    <h3 class="product-card__title"><a href="product-detail.html?id=${product.id}">${productName}</a></h3>
+                    <h3 class="product-card__title"><a href="product-detail.html?id=${product.id}">${displayName}</a></h3>
                     <p class="product-card__price">${priceHtml}</p>
-                    <div class="product-card__rating"><span class="stars">${stars}</span><span class="count">(${product.reviews})</span></div>
+                    <div class="product-card__rating"><span class="stars">${stars}</span><span class="count">(${reviews})</span></div>
                 </div>
             </div>
         `;
     }).join('');
+}
+
+// Add to cart function
+function addToCart(productId) {
+    const products = DataStore.getProducts();
+    const product = products.find(p => p.id === productId);
+
+    if (!product) return;
+
+    // Get current cart
+    let cart = JSON.parse(localStorage.getItem('hiMotors_cart') || '[]');
+
+    // Check if product already in cart
+    const existingIndex = cart.findIndex(item => item.productId === productId);
+
+    if (existingIndex >= 0) {
+        cart[existingIndex].quantity += 1;
+    } else {
+        cart.push({
+            productId: productId,
+            name: product.name,
+            price: product.price,
+            image: product.image,
+            quantity: 1
+        });
+    }
+
+    // Save cart
+    localStorage.setItem('hiMotors_cart', JSON.stringify(cart));
+
+    // Update cart count in header
+    updateCartCount();
+
+    showNotification(`${product.name} added to cart!`);
+}
+
+// Update cart count in header
+function updateCartCount() {
+    const cart = JSON.parse(localStorage.getItem('hiMotors_cart') || '[]');
+    const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+
+    const cartCountElements = document.querySelectorAll('.cart-count');
+    cartCountElements.forEach(el => {
+        el.textContent = totalItems;
+    });
 }
 
 function initFilters() {
